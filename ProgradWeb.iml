@@ -52,5 +52,6 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="Java EE 6-Java EE 6" level="project" />
+    <orderEntry type="library" name="com.zaxxer:HikariCP:2.4.5" level="project" />
   </component>
 </module>

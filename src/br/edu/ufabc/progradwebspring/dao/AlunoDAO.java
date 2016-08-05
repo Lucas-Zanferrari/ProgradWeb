@@ -7,28 +7,39 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import br.edu.ufabc.progradwebspring.model.Aluno;
-import br.edu.ufabc.progradwebspring.jdbc.ConexaoBD;
+import javax.sql.DataSource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-
+@Repository
 public class AlunoDAO {
 
     private Connection connection;
 
-    public AlunoDAO() {
+    @Autowired
+    public AlunoDAO(DataSource dataSource) {
+        try {
+            this.connection = dataSource.getConnection();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /*public AlunoDAO() {
         this.connection = new ConexaoBD().getConnection();
-    }
+    }*/
 
-    public AlunoDAO(Connection conexao) {
+    /*public AlunoDAO(Connection conexao) {
         this.connection = conexao;
-    }
+    }*/
 
-    public void fechaConexao() {
+    /*public void fechaConexao() {
         try {
             connection.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-    }
+    }*/
 
     // insere um aluno
     public void insere(Aluno aluno) {

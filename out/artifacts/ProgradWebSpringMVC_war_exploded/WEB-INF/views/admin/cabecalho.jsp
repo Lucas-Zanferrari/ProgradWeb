@@ -7,6 +7,6 @@
 --%>
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <header>
-    <img src="../../../resources/img/logo-ufabc.jpg"/>
+    <img src="../../../resources/img/logo_ufabc.jpg"/>
     <h1>Sistema Prograd Web</h1>
 </header>

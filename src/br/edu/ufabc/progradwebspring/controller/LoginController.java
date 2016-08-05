@@ -6,6 +6,8 @@ package br.edu.ufabc.progradwebspring.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +18,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class LoginController {
+
+    UsuarioDAO dao;
+
+    @Autowired
+    public LoginController(UsuarioDAO dao) {
+        this.dao = dao;
+    }
 
     @RequestMapping("/")
     public String home() {
@@ -44,7 +53,6 @@ public class LoginController {
             Usuario usuarioObj = new Usuario();
             usuarioObj.setUsuario(usuario);
             usuarioObj.setSenha(senha);
-            UsuarioDAO dao = new UsuarioDAO();
 
             if(dao.estaCadastrado(usuario)){
                 req.setAttribute("mensagem", "O usuário já está cadastrado." );
@@ -62,7 +70,6 @@ public class LoginController {
     @RequestMapping("login")
     public String login(Usuario usuario, HttpServletRequest req, Model model) {
         HttpSession session = req.getSession();
-        UsuarioDAO dao = new UsuarioDAO();
 
         if(session.getAttribute("usuario") != null){
             usuario = (Usuario) session.getAttribute("usuario");

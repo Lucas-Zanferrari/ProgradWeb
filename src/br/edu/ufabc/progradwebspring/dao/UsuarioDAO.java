@@ -1,10 +1,11 @@
 package br.edu.ufabc.progradwebspring.dao;
 
 import java.sql.Connection;
-
-import br.edu.ufabc.progradwebspring.jdbc.ConexaoBD;
 import br.edu.ufabc.progradwebspring.model.Usuario;
 import br.edu.ufabc.progradwebspring.crypt.BCrypt;
+import org.springframework.stereotype.Repository;
+import javax.sql.DataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,16 +13,28 @@ import java.sql.SQLException;
 /**
  * Created by lucaszanferrari on 7/28/16.
  */
+
+@Repository
 public class UsuarioDAO {
+
     private Connection connection;
 
-    public UsuarioDAO() {
+    /*public UsuarioDAO() {
         this.connection = new ConexaoBD().getConnection();
+    }*/
+
+    @Autowired
+    public UsuarioDAO(DataSource dataSource) {
+        try {
+            this.connection = dataSource.getConnection();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public UsuarioDAO(Connection connection) {
+    /*public UsuarioDAO(Connection connection) {
         this.connection = connection;
-    }
+    }*/
 
     // cadastra um usuario
     public void cadastra(Usuario usuario) {
